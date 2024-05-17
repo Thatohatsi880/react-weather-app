@@ -11,11 +11,15 @@ export default function Weather(){
           type="search" 
           placeholder= "Enter a city.."
           className="form-control"
+          autoFocus="on"
        /> 
        </div>
        <div className = "col-3">
-        <input type="submit" value="Search" className="btn 
-        btn-primary" />
+        <input 
+           type="submit" 
+           value="Search" 
+           className="btn btn-primary w-100"
+           />
         </div>
         </div>
     </form>
@@ -24,8 +28,9 @@ export default function Weather(){
         <li>Saturday 15:00</li>
         <li>Sunny</li>
       </ul>
-     <div className="row">
+     <div className="row mt -6">
         <div className="col-6">
+            <div className="clearfix">
           <img 
           src="data:image/png;
                base64,
@@ -34,10 +39,12 @@ export default function Weather(){
                nwHIhVgsKDWKriXhb+0WQD6wJxZegvhlADzrcUDhpeFlpwLyAa5BZ711Na4pgAXFNxFdABw2K4r/R9iRgLiw+N89MQSATxvYFN8F2DB0qkOJCggbi/
                8m9AASA0AiAXBuA0ziKIDACBAogMgIECkAYBUFKEABzwOIf4yKf5HJnkqIn8wxmk775y5oxC8pj1jUH9FWEd/
                YOqK1eERz94j2euFqUCF7NzjYbzHpLqUCFKCAJfkAq7RimK7qUtAAAAAASUVORK5CYII=" 
-          alt="Mostly Sunny"
-
+          alt="Sunny"
           />
-          24°C
+
+         <span className="temperature">24</span>
+         <span className="unit">°C</span>
+        </div>
         </div>
         <div className="col-6">
             <ul>
@@ -45,9 +52,8 @@ export default function Weather(){
                 <li>Humidity: 27%</li>
                 <li>Wind: 13 km/h</li>
             </ul>
-  <div/>
-  <div/>
   </div>
+  
   </div>
   </div>
     );

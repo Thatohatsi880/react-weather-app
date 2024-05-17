@@ -14,8 +14,10 @@ export default function App() {
        
       </a> {" "}
       and is {" "}
-      <a href="https://github.com/Thatohatsi880/react-weather-app"
-      target="blank"
+      <a href="https://github.com/Thatohatsi880/
+        react-weather-app"
+        target="blank"
+        className=""
       >
         open-sourced on GitHub
       </a>
