@@ -6,12 +6,11 @@ import "./Weather.css";
 export default function Weather(props) {
   const [weatherData, setWeatherData] = useState({ ready: false });
   const [city, setCity] = useState(props.defaultCity);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     console.log(`Component mounted, default city: ${city}`);
-    search(city);
-  }); // This will run once when the component mounts and whenever the city changes
+    search();
+  }); // This will run only once when the component mounts
 
   function handleResponse(response) {
     console.log("API response received", response.data);
@@ -25,11 +24,11 @@ export default function Weather(props) {
       precipitation: weatherData.rain ? weatherData.rain["1h"] : 0,
       iconUrl: `http://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`,
       wind: weatherData.wind.speed,
-      city: weatherData.name,
+      city: weatherData.name
     });
   }
 
-  function search(city) {
+  function search() {
     if (!city) {
       console.log("No city provided, skipping search");
       return;
@@ -38,28 +37,20 @@ export default function Weather(props) {
     const apiKey = "a867e25f2d83db579421a57fd8e937ec";
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`;
     console.log(`API URL: ${apiUrl}`);
-    axios
-      .get(apiUrl)
-      .then(handleResponse)
-      .catch((error) => {
-        console.error("Error fetching the weather data: ", error);
-        setError("Error fetching the weather data. Please try again later.");
-      });
+    axios.get(apiUrl).then(handleResponse).catch((error) => {
+      console.error("Error fetching the weather data: ", error);
+    });
   }
 
   function handleSubmit(event) {
     event.preventDefault();
     console.log(`Form submitted, searching for city: ${city}`);
-    search(city);
+    search();
   }
 
   function handleCityChange(event) {
     console.log(`City input changed to: ${event.target.value}`);
     setCity(event.target.value);
-  }
-
-  if (error) {
-    return <div className="Weather">Error: {error}</div>;
   }
 
   if (weatherData.ready) {
@@ -77,11 +68,7 @@ export default function Weather(props) {
               />
             </div>
             <div className="col-3">
-              <input
-                type="submit"
-                value="Search"
-                className="btn btn-primary w-100"
-              />
+              <input type="submit" value="Search" className="btn btn-primary w-100" />
             </div>
           </div>
         </form>
@@ -89,7 +76,6 @@ export default function Weather(props) {
       </div>
     );
   } else {
-    search()
     return "Loading...";
   }
 }
