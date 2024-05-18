@@ -18,8 +18,8 @@
 }
 
 .Weather ul{
-    margin: 0;
-    padding: 0;
+    padding: 10px;
+    margin-bottom: 10px;
 }
 
 .Weather li{
@@ -27,6 +27,8 @@
     font-weight: 100;
     line-height: 19.2px;
     list-style: none;
+    text-align: center;
+   
 
 }
 
