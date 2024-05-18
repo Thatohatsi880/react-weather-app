@@ -31,10 +31,11 @@
 }
 
 .Weather img{
-    height: 98px;
-    margin-right: 10px;
-    display: inline-block;
-    width: 98px;
+    height: 90px;
+    margin-right: 12px;
+    display:inline-flexbox;
+    width: 90px;
+    margin-bottom: 30px;
 }
 
 .Weather .temperature{
@@ -52,7 +53,6 @@
     position: relative;
     line-height: 1;
     top : -34px;
-    margin-left: 5px;
 
 
 
