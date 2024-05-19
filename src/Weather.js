@@ -22,7 +22,7 @@ export default function Weather(props) {
       date: new Date(weatherData.dt * 1000),
       description: weatherData.weather[0].description,
       precipitation: weatherData.rain ? weatherData.rain["1h"] : 0,
-      iconUrl: `http://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`,
+      iconUrl: `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
       wind: weatherData.wind.speed,
       city: weatherData.name
     });
@@ -35,7 +35,7 @@ export default function Weather(props) {
     }
     console.log(`Searching for city: ${city}`);
     const apiKey = "a867e25f2d83db579421a57fd8e937ec";
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`;
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
     console.log(`API URL: ${apiUrl}`);
     axios.get(apiUrl).then(handleResponse).catch((error) => {
       console.error("Error fetching the weather data: ", error);
