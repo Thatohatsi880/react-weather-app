@@ -22,7 +22,7 @@ export default function Weather(props) {
       date: new Date(weatherData.dt * 1000),
       description: weatherData.weather[0].description,
       precipitation: weatherData.rain ? weatherData.rain["1h"] : 0,
-      iconUrl: `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
+      icon: response.data.weather[0].icon,
       wind: weatherData.wind.speed,
       city: weatherData.name
     });
