@@ -15,18 +15,22 @@ export default function Weather(props) {
   function handleResponse(response) {
     console.log("API response received", response.data);
     const weatherData = response.data;
+    // Convert temperature from Kelvin to Celsius
+    const temperatureInCelsius = weatherData.main.temp - 273.15;
+
     setWeatherData({
-      ready: true,
-      temperature: weatherData.main.temp,
-      humidity: weatherData.main.humidity,
-      date: new Date(weatherData.dt * 1000),
-      description: weatherData.weather[0].description,
-      precipitation: weatherData.rain ? weatherData.rain["1h"] : 0,
-      icon: response.data.weather[0].icon,
-      wind: weatherData.wind.speed,
-      city: weatherData.name
+        ready: true,
+        temperature: temperatureInCelsius,
+        humidity: weatherData.main.humidity,
+        date: new Date(weatherData.dt * 1000),
+        description: weatherData.weather[0].description,
+        precipitation: weatherData.rain ? weatherData.rain["1h"] : 0,
+        icon: response.data.weather[0].icon,
+        wind: weatherData.wind.speed,
+        city: weatherData.name
     });
-  }
+}
+
 
   function search() {
     if (!city) {
