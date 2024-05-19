@@ -34,6 +34,5 @@ export default function WeatheredInfo(props){
             </ul>
          </div>
          </div>
-         </div>
    );
 }
