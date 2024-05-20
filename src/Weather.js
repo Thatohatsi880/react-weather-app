@@ -1,63 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import WeatheredInfo from "./WeatheredInfo";
-import axios from "axios";
 import WeatherForecast from "./WeatherForecast";
-
+import axios from "axios";
 import "./Weather.css";
 
 export default function Weather(props) {
   const [weatherData, setWeatherData] = useState({ ready: false });
   const [city, setCity] = useState(props.defaultCity);
 
-  useEffect(() => {
-    console.log(`Component mounted, default city: ${city}`);
-    search();
-  }); // This will run only once when the component mounts
-
   function handleResponse(response) {
-    console.log("API response received", response.data);
-    const weatherData = response.data;
-    // Convert temperature from Kelvin to Celsius
-    const temperatureInCelsius = weatherData.main.temp - 273.15;
-
     setWeatherData({
-        ready: true,
-        coordinates: response.data.coord,
-        temperature: temperatureInCelsius,
-        humidity: weatherData.main.humidity,
-        date: new Date(weatherData.dt * 1000),
-        description: weatherData.weather[0].description,
-        precipitation: weatherData.rain ? weatherData.rain["1h"] : 0,
-        icon: response.data.weather[0].icon,
-        wind: weatherData.wind.speed,
-        city: weatherData.name
-    });
-}
-
-
-  function search() {
-    if (!city) {
-      console.log("No city provided, skipping search");
-      return;
-    }
-    console.log(`Searching for city: ${city}`);
-    const apiKey = "a867e25f2d83db579421a57fd8e937ec";
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
-    console.log(`API URL: ${apiUrl}`);
-    axios.get(apiUrl).then(handleResponse).catch((error) => {
-      console.error("Error fetching the weather data: ", error);
+      ready: true,
+      coordinates: response.data.coord,
+      temperature: response.data.main.temp,
+      humidity: response.data.main.humidity,
+      date: new Date(response.data.dt * 1000),
+      description: response.data.weather[0].description,
+      icon: response.data.weather[0].icon,
+      wind: response.data.wind.speed,
+      city: response.data.name,
     });
   }
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(`Form submitted, searching for city: ${city}`);
     search();
   }
 
   function handleCityChange(event) {
-    console.log(`City input changed to: ${event.target.value}`);
     setCity(event.target.value);
+  }
+
+  function search() {
+    const apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(handleResponse);
   }
 
   if (weatherData.ready) {
@@ -75,15 +52,20 @@ export default function Weather(props) {
               />
             </div>
             <div className="col-3">
-              <input type="submit" value="Search" className="btn btn-primary w-100" />
+              <input
+                type="submit"
+                value="Search"
+                className="btn btn-primary w-100"
+              />
             </div>
           </div>
         </form>
         <WeatheredInfo data={weatherData} />
-        <WeatherForecast coordinates={weatherData.coordinates}/>
+        <WeatherForecast coordinates={weatherData.coordinates} />
       </div>
     );
   } else {
+    search();
     return "Loading...";
   }
 }
